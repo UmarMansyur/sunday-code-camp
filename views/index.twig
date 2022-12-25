@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <title>TodoList</title>
+</head>
+
+<body>
+    <h1 class="text-center">Aplikasi Todo List</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <form action="/" method="post" class="d-flex">
+                <div class="col-10 text-center">
+                    <input type="text" name="task" id="task" class="form-control">
+                </div>
+                <div class="col-3 text-end">
+                    <button class="btn btn-warning" type="button" id="save" onclick="addOrEdit()">Tambah</button>
+                </div>
+            </form>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">No</th>
+                            <th style="width: 40%;">Kegiatan</th>
+                            <th>Keterangan</th>
+                            <th style="width: 10%;">#</th>
+                            <th style="width: 10%;">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for todo in todos %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td style="{{todo.status == 1 ? 'text-decoration: line-through'  : 'text-decoration: none'   }}">{{ todo.task }}</td>
+                            <td><span onclick="isStatus(`{{todo.id}}`)">{{(todo.status == 0) ? 'On going ...' : 'Selesai'}}</span></td>
+                            <td><a onclick="edit(`{{todo.id}}`)"><i class="fas fa-pen"></i></a></td>
+                            <td><a onclick="destroy(`{{todo.id}}`)"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="/public/js/main.js"></script>
+</body>
+
+</html>
